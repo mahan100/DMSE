@@ -1,0 +1,8 @@
+.ipynb_checkpoints
+codeium-jupyter/
+mlruns/
+data/ModelCheckpoint/
+.virtual_documents/
+bitcoin-historical-data.zip
+btcusd_1-min_data.csv
+logs/
