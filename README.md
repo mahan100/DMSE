@@ -27,6 +27,7 @@ Where:
 - \(\theta\) is the angle between \(\mathbf{y}\) and \(\hat{\mathbf{y}}\)  
 - \(\lambda \in [0, 1]\) balances magnitude and direction sensitivity
 
+
 This formulation ensures that both the **length** and **direction** of prediction vectors are aligned with the target, making DMSE particularly effective in tasks involving geometric relationships.
 
 
