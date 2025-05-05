@@ -1,6 +1,6 @@
 # Dimensional Mean Squared Error (DMSE)
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 
 **DMSE: A Geometrically-Informed Scalar Loss Function for Multi-Dimensional Regression**
 
@@ -15,64 +15,70 @@ Traditional loss functions like Mean Squared Error (MSE) treat each output dimen
 
 The result is a loss function that improves alignment with multi-dimensional target dynamics.
 
-## 📈 Use Case
+The DMSE loss is formally defined as:
 
-We demonstrate DMSE in a **Bitcoin price prediction** task using LSTM, where the model predicts:
+\[
+\text{DMSE}(\mathbf{y}, \hat{\mathbf{y}}) = \lambda \cdot \left( \|\mathbf{y}\| - \|\hat{\mathbf{y}}\| \right)^2 + (1 - \lambda) \cdot \|\mathbf{y}\|^2 \cdot \left(1 - \cos \theta\right)
+\]
 
-- Price change percentage
-- Direction of change
+Where:
+- \(\mathbf{y}\) is the target vector
+- \(\hat{\mathbf{y}}\) is the predicted vector
+- \(\theta\) is the angle between \(\mathbf{y}\) and \(\hat{\mathbf{y}}\)
+- \(\lambda \in [0, 1]\) balances magnitude and direction sensitivity
 
-Our experiments show that DMSE outperforms traditional MSE in sensitivity and accuracy with respect to target volatility and directional behavior.
+This formulation ensures that both the **length** and **direction** of prediction vectors are aligned with the target, making DMSE particularly effective in tasks involving geometric relationships.
 
-## 📁 Repository Structure
+## 🧪 Usage & Demo
 
-```
-.
-├── dmse_loss.py        # DMSE loss function implementation
-├── model.py            # LSTM model for regression
-├── train.py            # Training script
-├── data/               # Sample or processed dataset
-├── utils/              # Utility scripts
-└── README.md           # Project documentation
-```
-
-## 🚀 Getting Started
-
-### Installation
+The full implementation and evaluation of DMSE is contained in the following Jupyter notebook:
 
 ```bash
-git clone https://github.com/mahan100/DMSE.git
-cd DMSE
-pip install -r requirements.txt
+Main.ipynb
 ```
 
-### Training the Model
+## 🛠️ Implementation Details
 
-```bash
-python train.py --epochs 100 --loss dmse
-```
+A Long Short-Term Memory (LSTM) neural network was implemented to evaluate the proposed DMSE loss function in a time series forecasting task. The model predicts the price change of Bitcoin using historical price and volume data.
 
-### Evaluating the Model
+The architecture consists of:
+- Multiple LSTM layers followed by dense layers
+- A two-dimensional output: percentage change and direction of movement
 
-```bash
-python evaluate.py --model_path ./checkpoints/model.pth
-```
+The model was trained under two configurations:
+- Loss: Mean Squared Error (MSE) vs. Dimensional Mean Squared Error (DMSE)
+- Optimizers: Stochastic Gradient Descent (SGD) and Adam
 
-## 📚 Citation
+Training was executed using a Jupyter notebook:  
+📄 `Main.ipynb`
 
-If you find this work useful, please cite:
+## 📊 Experimental Results
 
-```bibtex
-@misc{mohseni2025dmse,
-  title={Dimensional Mean Squared Error (DMSE): A Geometrically-Informed Scalar Loss Function for Multi-Dimensional Regression},
-  author={Mehdi Mohseni Mahani},
-  year={2025},
-  howpublished={\url{https://github.com/mahan100/DMSE}}
-}
-```
+We compared the DMSE and MSE loss functions across two scenarios using the same LSTM model:
 
-## 📬 Contact
+1. **SGD Optimizer**
+2. **Adam Optimizer**
 
-For questions or feedback, please contact:  
-**Mehdi Mohseni Mahani**  
-📧 mohsenimehdi1367@gmail.com
+For each, the model was trained with MSE and then retrained with DMSE.
+
+Key observations:
+- **Volatility sensitivity**: DMSE produced outputs with greater variance, better reflecting price dynamics.
+- **Directional accuracy**: The alignment between predicted and target directional indicators improved using DMSE.
+
+Visualizations (found in `images/` directory) show:
+- Comparison of prediction patterns
+- Enhanced geometric matching using DMSE
+
+These results support the claim that DMSE improves both the sensitivity to directional changes and the fidelity of multi-dimensional predictions.
+
+### 📷 Visual Results
+
+![MSE with Adam Optimizer](https://github.com/mahan100/DMSE/blob/essay/actual_dloss_mse_adam.png?raw=true)
+*Figure: Prediction using MSE loss with Adam optimizer*
+
+![MSE vs DMSE with SGD Optimizer](https://github.com/mahan100/DMSE/blob/essay/actual_dloss_mse_sgd.png?raw=true)
+*Figure: MSE prediction using SGD optimizer*
+
+![DMSE vs MSE with SGD Optimizer](https://github.com/mahan100/DMSE/blob/essay/actual_dmse_mse_sgd.png?raw=true)
+*Figure: DMSE prediction comparison using SGD optimizer*
+
