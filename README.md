@@ -17,17 +17,18 @@ The result is a loss function that improves alignment with multi-dimensional tar
 
 The DMSE loss is formally defined as:
 
-\[
+$$
 \text{DMSE}(\mathbf{y}, \hat{\mathbf{y}}) = \lambda \cdot \left( \|\mathbf{y}\| - \|\hat{\mathbf{y}}\| \right)^2 + (1 - \lambda) \cdot \|\mathbf{y}\|^2 \cdot \left(1 - \cos \theta\right)
-\]
+$$
 
 Where:
-- \(\mathbf{y}\) is the target vector
-- \(\hat{\mathbf{y}}\) is the predicted vector
-- \(\theta\) is the angle between \(\mathbf{y}\) and \(\hat{\mathbf{y}}\)
+- \(\mathbf{y}\) is the target vector  
+- \(\hat{\mathbf{y}}\) is the predicted vector  
+- \(\theta\) is the angle between \(\mathbf{y}\) and \(\hat{\mathbf{y}}\)  
 - \(\lambda \in [0, 1]\) balances magnitude and direction sensitivity
 
 This formulation ensures that both the **length** and **direction** of prediction vectors are aligned with the target, making DMSE particularly effective in tasks involving geometric relationships.
+
 
 ## 🧪 Usage & Demo
 
