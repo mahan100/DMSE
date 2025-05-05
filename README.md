@@ -77,7 +77,3 @@ These results support the claim that DMSE improves both the sensitivity to direc
 
 ![MSE vs DMSE with SGD Optimizer](https://github.com/mahan100/DMSE/blob/essay/images/actual_dloss_mse_sgd.png?raw=true)
 *Figure: MSE prediction using SGD optimizer*
-
-![DMSE vs MSE with SGD Optimizer](https://github.com/mahan100/DMSE/blob/essay/images/actual_dmse_mse_sgd.png?raw=true)
-*Figure: DMSE prediction comparison using SGD optimizer*
-
